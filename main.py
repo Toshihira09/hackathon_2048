@@ -1,5 +1,6 @@
 import tkinter as tk
 import math
+import random
 
 canvas = None
 
@@ -77,8 +78,15 @@ def show_tile():
                        tiles[i].row_number)
 
 
+def add_random_tile():
+    global tiles
+    random_tile = random.randint(0, NUMBER * NUMBER)
+    tiles[random_tile].number = 2
+
+
 def operate(event):
     print(event.keysym)
+    add_random_tile()
     show_tile()
 
 
@@ -87,9 +95,9 @@ def play():
     root, canvas = create_canvas()
     set_field()
     set_tile()
+    add_random_tile()
+    add_random_tile()
     show_tile()
-    set_number("2", 0, 3)
-    set_number("4", 2, 1)
     root.bind("<Key>", lambda event: operate(event))
     root.mainloop()
 
