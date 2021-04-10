@@ -89,8 +89,36 @@ def add_random_tile():
 
 def operate(event):
     print(event.keysym)
+    move_tiles(event.keysym)
     add_random_tile()
     show_tile()
+
+
+def move_tiles(arrow):
+    global tiles
+    for tile in tiles:
+        if tile.number > 0:
+            if arrow == 'Left':
+                most_left = get_most_left(tile.row_number)
+                tiles[most_left].number += tile.number
+                tile.number = 0
+            elif arrow == 'Right':
+                tiles[get_most_right(tile.row_number)].number += tile.number
+                tile.number = 0
+            elif arrow == 'Up':
+                col_number = tile.col_number
+                row_number = 0
+            elif arrow == 'Down':
+                col_number = tile.col_number
+                row_number = NUMBER + 1
+
+
+def get_most_left(row_number):
+    return NUMBER * row_number
+
+
+def get_most_right(row_number):
+    return NUMBER * (row_number + 1) - 1
 
 
 def play():
