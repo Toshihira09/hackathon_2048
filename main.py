@@ -11,6 +11,14 @@ NUMBER = 4
 LENGTH = SQUARE_LENGTH * NUMBER + BORDER_WIDTH * NUMBER
 CELL_COLOR = '#cbbeb5'
 BORDER_COLOR = '#b2a698'
+tiles = []
+
+
+class Tile:
+    def __init__(self, number, col_number, row_number):
+        self.number = number
+        self.col_number = col_number
+        self.row_number = row_number
 
 
 def set_field():
@@ -51,6 +59,14 @@ def set_number(num, x, y):
                        justify="center", font=("", 70), tag="count_text")
 
 
+def set_tile():
+    global tiles
+    for i in range(NUMBER):
+        for j in range(NUMBER):
+            tile = Tile(0, i, j)
+            tiles.append(tile)
+
+
 def operate(event):
     print(event.keysym)
 
@@ -59,6 +75,7 @@ def play():
     global canvas
     root, canvas = create_canvas()
     set_field()
+    set_tile()
     set_number("2", 0, 3)
     set_number("4", 2, 1)
     root.bind("<Key>", lambda event: operate(event))
