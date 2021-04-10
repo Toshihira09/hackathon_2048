@@ -67,8 +67,19 @@ def set_tile():
             tiles.append(tile)
 
 
+def show_tile():
+    global tiles
+    for i in range(NUMBER * NUMBER):
+        if tiles[i].number == 0:
+            set_number('', tiles[i].col_number, tiles[i].row_number)
+        else:
+            set_number(tiles[i].number, tiles[i].col_number,
+                       tiles[i].row_number)
+
+
 def operate(event):
     print(event.keysym)
+    show_tile()
 
 
 def play():
@@ -76,6 +87,7 @@ def play():
     root, canvas = create_canvas()
     set_field()
     set_tile()
+    show_tile()
     set_number("2", 0, 3)
     set_number("4", 2, 1)
     root.bind("<Key>", lambda event: operate(event))
