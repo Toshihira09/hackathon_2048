@@ -31,6 +31,17 @@ class Tile:
         self.number = number
         self.col_number = col_number
         self.row_number = row_number
+        self.is_fill = False
+
+    def calculate_number(self, number):
+        self.number += number
+
+    def delete_number(self):
+        self.is_fill = False
+        self.number = 0
+
+    def change_is_fill(self):
+        self.is_fill = True
 
 
 def set_field():
@@ -91,9 +102,9 @@ def set_frame_tiles():
         left_tiles.append(i)
         right_tiles.append(NUMBER * NUMBER - i - 1)
     frame_tiles['Up'] = up_tiles
-    frame_tiles['Down'] = list(reversed(down_tiles))
+    frame_tiles['Down'] = down_tiles
     frame_tiles['Left'] = left_tiles
-    frame_tiles['Right'] = right_tiles
+    frame_tiles['Right'] = list(reversed(right_tiles))
 
 
 def show_tile():
@@ -104,6 +115,7 @@ def show_tile():
         else:
             set_number(tiles[i].number, tiles[i].col_number,
                        tiles[i].row_number)
+            tiles[i].change_is_fill()
 
 
 def add_random_tile():
@@ -115,29 +127,24 @@ def add_random_tile():
 
 
 def operate(event):
-    print(event.keysym)
     move_tiles(event.keysym)
     add_random_tile()
     show_tile()
 
 
 def move_tiles(arrow):
-    global tiles
+    global tiles, frame_tiles
     for tile in tiles:
-        if tile.number > 0:
-            if arrow == 'Left':
-                most_left = get_most_left(tile.row_number)
-                tiles[most_left].number += tile.number
-                tile.number = 0
-            elif arrow == 'Right':
-                tiles[get_most_right(tile.row_number)].number += tile.number
-                tile.number = 0
-            elif arrow == 'Up':
-                col_number = tile.col_number
-                row_number = 0
-            elif arrow == 'Down':
-                col_number = tile.col_number
-                row_number = NUMBER + 1
+        if tile.is_fill == False:
+            continue
+        if arrow == 'Left' or arrow == 'Right':
+            tiles[frame_tiles[arrow][tile.row_number]
+                  ].calculate_number(tile.number)
+            tile.delete_number()
+        elif arrow == 'Up' or arrow == 'Down':
+            tiles[frame_tiles[arrow][tile.col_number]
+                  ].calculate_number(tile.number)
+            tile.delete_number()
 
 
 def get_most_left(row_number):
