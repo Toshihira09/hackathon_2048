@@ -3,6 +3,17 @@ import math
 import random
 
 canvas = None
+tiles = []
+frame_tiles = {
+    "Up": {
+    },
+    "Down": {
+    },
+    "Left": {
+    },
+    "Right": {
+    },
+}
 
 SQUARE_LENGTH = 100
 RADIUS = SQUARE_LENGTH / 2 - 5
@@ -13,7 +24,6 @@ LENGTH = SQUARE_LENGTH * NUMBER + BORDER_WIDTH * NUMBER
 CELL_COLOR = '#cbbeb5'
 BORDER_COLOR = '#b2a698'
 MIN_TILE_NUMBER = 2
-tiles = []
 
 
 class Tile:
@@ -67,6 +77,23 @@ def set_tile():
         for j in range(NUMBER):
             tile = Tile(0, i, j)
             tiles.append(tile)
+
+
+def set_frame_tiles():
+    global frame_tiles
+    up_tiles = []
+    down_tiles = []
+    left_tiles = []
+    right_tiles = []
+    for i in range(NUMBER):
+        up_tiles.append(i)
+        down_tiles.append(NUMBER * NUMBER - i - 1)
+        left_tiles.append(i * NUMBER)
+        right_tiles.append(i * NUMBER + NUMBER - 1)
+    frame_tiles['Up'] = up_tiles
+    frame_tiles['Down'] = list(reversed(down_tiles))
+    frame_tiles['Left'] = left_tiles
+    frame_tiles['Right'] = right_tiles
 
 
 def show_tile():
@@ -126,6 +153,7 @@ def play():
     root, canvas = create_canvas()
     set_field()
     set_tile()
+    set_frame_tiles()
     add_random_tile()
     add_random_tile()
     show_tile()
