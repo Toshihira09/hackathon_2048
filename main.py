@@ -86,10 +86,10 @@ def set_frame_tiles():
     left_tiles = []
     right_tiles = []
     for i in range(NUMBER):
-        up_tiles.append(i)
-        down_tiles.append(NUMBER * NUMBER - i - 1)
-        left_tiles.append(i * NUMBER)
-        right_tiles.append(i * NUMBER + NUMBER - 1)
+        up_tiles.append(i * NUMBER)
+        down_tiles.append(i * NUMBER + NUMBER - 1)
+        left_tiles.append(i)
+        right_tiles.append(NUMBER * NUMBER - i - 1)
     frame_tiles['Up'] = up_tiles
     frame_tiles['Down'] = list(reversed(down_tiles))
     frame_tiles['Left'] = left_tiles
