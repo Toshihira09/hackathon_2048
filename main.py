@@ -147,12 +147,15 @@ def move_tiles(arrow):
             tile.delete_number()
 
 
-def get_most_left(row_number):
-    return NUMBER * row_number
-
-
-def get_most_right(row_number):
-    return NUMBER * (row_number + 1) - 1
+def check_arrow(arrow, tile):
+    global frame_tiles
+    if arrow == 'Left' or arrow == 'Right':
+        if tile.row_number in frame_tiles[arrow]:
+            return True
+    elif arrow == 'Up' or arrow == 'Down':
+        if tile.col_number in frame_tiles[arrow]:
+            return True
+    return False
 
 
 def play():
