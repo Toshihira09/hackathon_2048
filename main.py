@@ -80,7 +80,9 @@ def show_tile():
 
 def add_random_tile():
     global tiles
-    random_tile = random.randint(0, NUMBER * NUMBER)
+    random_tile = random.randint(0, NUMBER * NUMBER - 1)
+    while tiles[random_tile].number >= 2:
+        random_tile = random.randint(0, NUMBER * NUMBER - 1)
     tiles[random_tile].number = 2
 
 
