@@ -12,6 +12,7 @@ NUMBER = 4
 LENGTH = SQUARE_LENGTH * NUMBER + BORDER_WIDTH * NUMBER
 CELL_COLOR = '#cbbeb5'
 BORDER_COLOR = '#b2a698'
+MIN_TILE_NUMBER = 2
 tiles = []
 
 
@@ -81,9 +82,9 @@ def show_tile():
 def add_random_tile():
     global tiles
     random_tile = random.randint(0, NUMBER * NUMBER - 1)
-    while tiles[random_tile].number >= 2:
+    while tiles[random_tile].number >= MIN_TILE_NUMBER:
         random_tile = random.randint(0, NUMBER * NUMBER - 1)
-    tiles[random_tile].number = 2
+    tiles[random_tile].number = MIN_TILE_NUMBER
 
 
 def operate(event):
